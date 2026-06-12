@@ -1,8 +1,49 @@
 <html>
  <head>
-    <title>THE</title>
+    <title>MathsFun; Premium Maths Games</title>
+    <style>
+        .header-container {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        padding-left: 30px;
+        padding-top: 250px;
+        padding-right: 30px;
+        display: flex;
+        justify-content:  space-between;
+        align-items: center;
+        gap: 20px;
+        }
+
+        .title {
+            flex: 1;
+        }
+
+        .header-image {
+            max-width: 40%;
+            height: auto;
+        }
+    </style>
  </head>
  <body>
-    <h1>Hello, World!</h1>
+    <script>
+        function checkCode() {
+            let userCode = prompt("Enter the code:")
+
+            let correctCode = "Secret123"
+
+            if (userCode !== null) {
+                if (userCode.trim() === correctCode) {
+                    window.location.href = "./Games.html"
+                } else {
+                    alert("error 403: access denied!!!")
+                }
+            }
+        }
+    </script>
+    <div class="header-container">
+    <h1 class="title">Welcome to MathsFun,<br> where we make maths entertaining!</h1>
+    <img class="header-image" src="math.gif" alt="math symbols illustration">
+    </div>
+
+    <button onclick="checkCode()">Math Games Here!</button>
  </body>
 </html>
