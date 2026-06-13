@@ -2,24 +2,41 @@
  <head>
     <title>MathsFun; Premium Maths Games</title>
     <style>
+        body {
+            background: #c32278;
+            background: linear-gradient(0deg, rgba(195, 34, 120, 1) 0%, rgba(253, 187, 45, 1) 100%);
+        }
+
         .header-container {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         padding-left: 30px;
-        padding-top: 250px;
+        padding-top: 10%;
         padding-right: 30px;
         display: flex;
         justify-content:  space-between;
         align-items: center;
         gap: 20px;
+        
         }
 
         .title {
             flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            background: rgba(0, 213, 255, 0.329);
+            background: radial-gradient(circle, rgba(0, 213, 255, 0.329) 0%, rgba(255, 255, 255, 0.1) 100%);
         }
 
         .header-image {
             max-width: 40%;
             height: auto;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 999px;
+            
         }
     </style>
  </head>
@@ -28,10 +45,10 @@
         function checkCode() {
             let userCode = prompt("Enter the code:")
 
-            let correctCode = "Secret123"
+            let correctCode = "VEhFTUVPV05FUkQ="
 
             if (userCode !== null) {
-                if (userCode.trim() === correctCode) {
+                if (userCode.trim() === atob(correctCode)) {
                     window.location.href = "./games.html"
                 } else {
                     alert("error 403: access denied!!!")
@@ -44,6 +61,6 @@
     <img class="header-image" src="math.gif" alt="math symbols illustration">
     </div>
 
-    <button onclick="checkCode()">Math Games Here!</button>
+    <button onclick="checkCode()"><strong>Math Games Here!</strong></button>
  </body>
 </html>
