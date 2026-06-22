@@ -3,10 +3,18 @@
     <title>Secret games!</title>
 
     <style>
+      
+
       body {
          background-image: url("cat.webp");
          background-size: cover;
          background-position: 50% 25%;
+         backdrop-filter: blur(2px); 
+         -webkit-backdrop-filter: blur(2px);
+         /*fixed the background having a mental breakdown when searching*/
+         background-attachment: fixed;
+         background-repeat: no-repeat;
+         min-height: 100vh;
       }
 
       .container {
@@ -15,59 +23,146 @@
          padding: 10px;
       }
 
-      .container button {
-      border: 1px solid black;
-      background-color: rgba(255, 255, 255, 0.5);
-      padding: 10px;
-      margin: 10px;
-      font-size: 30px;
-      text-align: center;
-      border-radius: 30px
-}
+      .button { 
+            border: 2px solid rgba(255, 255, 255, 0.4); 
+            background: rgba(255, 255, 255, 0.15); 
+            padding: 15px 20px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+            text-align: center; 
+            border-radius: 16px; 
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+
+        .button:hover { 
+            transform: translateY(-5px); 
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
+        }
+
+        .button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); 
+        }
+
+
+
+
+      .search-container {
+            max-width: 500px;
+            margin: 20px auto 40px auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Modern styled search input */
+        #searchBar {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            color: white;
+            outline: none;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Change placeholder text color to be visible */
+        #searchBar::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        #searchBar:focus {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
 
     </style>
  </head>
  <body>
-    <div class="container">
-     <button onclick="window.location.href='./1_12.html'">Play Eaglercraft 1.12!</button>
-     <button onclick="window.location.href='./1_8.html'">Play Eaglercraft 1.8!</button>
-     <button onclick="window.location.href='./Subway-Surfers-main/index.html'">Play Subway Surfers!</button>
-     <button onclick="window.location.href='./paperio2.htm'">Play Paper.io 2!</button>
-     <button onclick="window.location.href='./polytrack.html'">Play Polytrack!</button>
-     <button onclick="window.location.href='./poorbunny.html'">Play poorbunny!</button>
-     <button onclick="window.location.href='./pou.html'">Play pou!</button>
-     <button onclick="window.location.href='./ragdollarchers.htm'">Play Ragdoll Archers!</button>
-     <button onclick="window.location.href='./ragdollhit.html'">Play Ragdoll Hit!</button>
-     <button onclick="window.location.href='./ragdollsoccer.html'">Play Ragdoll Football!</button>
-     <button onclick="window.location.href='./redball4vol1.html'">Play RedBall4 Volume 1!</button>
-     <button onclick="window.location.href='./redball4vol2.html'">Play RedBall4 Volume 2!</button>
-     <button onclick="window.location.href='./slope.html'">Play Slope!</button>
-     <button onclick="window.location.href='./slope2player.html'">Play Slope 2 Player!</button>
-     <button onclick="window.location.href='./slowroads.html'">Play SlowRoads!</button>
-     <button onclick="window.location.href='./snowballio.html'">Play SnowBall.io!</button>
-     <button onclick="window.location.href='./stickfighter.html'">Play Stick Fighter!</button>
-     <button onclick="window.location.href='./tag.html'">Play Tag!</button>
-     <button onclick="window.location.href='./territorialio.html'">Play Territorial.io!</button>
-     <button onclick="window.location.href='./theimpossiblequiz.html'">Play The Impossible Quiz!</button>
-     <button onclick="window.location.href='./theimpossiblequiz2.html'">Play The Impossible Quiz 2!</button>
-     <button onclick="window.location.href='./thereisnogame.html'">Play The There is no game!</button>
-     <button onclick="window.location.href='./tunnelrush.html'">Play Tunnel rush!</button>
-     <button onclick="window.location.href='./newgames/badpiggies.html'">Play Bad Piggies!</button>
-     <button onclick="window.location.href='./newgames/basketrandom.html'">Play Basket Random!</button>
-     <button onclick="window.location.href='./newgames/bloxorz.html'">Play Bloxorz!</button>
-     <button onclick="window.location.href='./newgames/bouncymotors.html'">Play Bouncy Motors!</button>
-     <button onclick="window.location.href='./newgames/boxingrandom.html'">Play Boxing Radndom!</button>
-     <button onclick="window.location.href='./newgames/cardrawing.html'">Play Car Drawing!</button>
-     <button onclick="window.location.href='./newgames/crazycars.html'">Play Crazy Cars!</button>
-     <button onclick="window.location.href='./newgames/crazycattle3D.html'">Play Crazy Cattle 3D!</button>
-     <button onclick="window.location.href='./newgames/driftboss.htm'">Play Drift Boss!</button>
-     <button onclick="window.location.href='./newgames/drivemad.htm'">Play Drive Mad!</button>
-     <button onclick="window.location.href='./newgames/ducklife.html'">Play Duck life 1!</button>
-     <button onclick="window.location.href='./newgames/ducklife2.html'">Play Duck life 2!</button>
-     <button onclick="window.location.href='./newgames/ducklife3.html'">Play Duck life 3!</button>
-     <button onclick="window.location.href='./newgames/ducklife4.html'">Play Duck life 4!</button>
-     <button onclick="window.location.href='./newgames/ducklife5.html'">Play Duck life 5!</button>
-     <button onclick="window.location.href='./newgames/plonky.html'">Play Plonky!</button>
+      <div class="search-container">
+        <input type="text" id="searchBar" onkeyup="filterGames()" placeholder="Search for a game...">
+      </div>
+
+    <div class="container" id="gamesGrid">
+     <button class="button" onclick="window.location.href='./newgames/sandboxels-main/index.html'">Play Sandboxels!</button>
+     <button class="button" onclick="window.location.href='./1_12.html'">Play Eaglercraft 1.12!</button>
+     <button class="button" onclick="window.location.href='./1_8.html'">Play Eaglercraft 1.8!</button>
+     <button class="button" onclick="window.location.href='./Subway-Surfers-main/index.html'">Play Subway Surfers!</button>
+     <button class="button" onclick="window.location.href='./paperio2.htm'">Play Paper.io 2!</button>
+     <button class="button" onclick="window.location.href='./polytrack.html'">Play Polytrack!</button>
+     <button class="button" onclick="window.location.href='./poorbunny.html'">Play poorbunny!</button>
+     <button class="button" onclick="window.location.href='./pou.html'">Play pou!</button>
+     <button class="button" onclick="window.location.href='./ragdollarchers.htm'">Play Ragdoll Archers!</button>
+     <button class="button" onclick="window.location.href='./ragdollhit.html'">Play Ragdoll Hit!</button>
+     <button class="button" onclick="window.location.href='./ragdollsoccer.html'">Play Ragdoll Football!</button>
+     <button class="button" onclick="window.location.href='./redball4vol1.html'">Play RedBall4 Volume 1!</button>
+     <button class="button" onclick="window.location.href='./redball4vol2.html'">Play RedBall4 Volume 2!</button>
+     <button class="button" onclick="window.location.href='./slope.html'">Play Slope!</button>
+     <button class="button" onclick="window.location.href='./slope2player.html'">Play Slope 2 Player!</button>
+     <button class="button" onclick="window.location.href='./slowroads.html'">Play SlowRoads!</button>
+     <button class="button" onclick="window.location.href='./snowballio.html'">Play SnowBall.io!</button>
+     <button class="button" onclick="window.location.href='./stickfighter.html'">Play Stick Fighter!</button>
+     <button class="button" onclick="window.location.href='./tag.html'">Play Tag!</button>
+     <button class="button" onclick="window.location.href='./territorialio.html'">Play Territorial.io!</button>
+     <button class="button" onclick="window.location.href='./theimpossiblequiz.html'">Play The Impossible Quiz!</button>
+     <button class="button" onclick="window.location.href='./theimpossiblequiz2.html'">Play The Impossible Quiz 2!</button>
+     <button class="button" onclick="window.location.href='./thereisnogame.html'">Play The There is no game!</button>
+     <button class="button" onclick="window.location.href='./tunnelrush.html'">Play Tunnel rush!</button>
+     <button class="button" onclick="window.location.href='./newgames/badpiggies.html'">Play Bad Piggies!</button>
+     <button class="button" onclick="window.location.href='./newgames/basketrandom.html'">Play Basket Random!</button>
+     <button class="button" onclick="window.location.href='./newgames/bloxorz.html'">Play Bloxorz!</button>
+     <button class="button" onclick="window.location.href='./newgames/bouncymotors.html'">Play Bouncy Motors!</button>
+     <button class="button" onclick="window.location.href='./newgames/boxingrandom.htm'">Play Boxing Random!</button>
+     <button class="button" onclick="window.location.href='./newgames/cardrawing.html'">Play Car Drawing!</button>
+     <button class="button" onclick="window.location.href='./newgames/crazycars.html'">Play Crazy Cars!</button>
+     <button class="button" onclick="window.location.href='./newgames/crazycattle3D.html'">Play Crazy Cattle 3D!</button>
+     <button class="button" onclick="window.location.href='./newgames/driftboss.htm'">Play Drift Boss!</button>
+     <button class="button" onclick="window.location.href='./newgames/drivemad.htm'">Play Drive Mad!</button>
+     <button class="button" onclick="window.location.href='./newgames/ducklife.html'">Play Duck life 1!</button>
+     <button class="button" onclick="window.location.href='./newgames/ducklife2.html'">Play Duck life 2!</button>
+     <button class="button" onclick="window.location.href='./newgames/ducklife3.html'">Play Duck life 3!</button>
+     <button class="button" onclick="window.location.href='./newgames/ducklife4.html'">Play Duck life 4!</button>
+     <button class="button" onclick="window.location.href='./newgames/ducklife5.html'">Play Duck life 5!</button>
+     <button class="button" onclick="window.location.href='./newgames/plonky.html'">Play Plonky!</button>
     </div>
+
+    <script>
+        function filterGames() {
+            // Get what the user typed and change it to lowercase
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            
+            // Get all the buttons inside the grid
+            let grid = document.getElementById('gamesGrid');
+            let buttons = grid.getElementsByClassName('button');
+
+            // Loop through every single button
+            for (let i = 0; i < buttons.length; i++) {
+                let buttonText = buttons[i].textContent || buttons[i].innerText;
+                
+                // If the text matches the search input, show it. Otherwise, hide it.
+                if (buttonText.toLowerCase().includes(input)) {
+                    buttons[i].style.display = "";
+                } else {
+                    buttons[i].style.display = "none";
+                }
+            }
+        }
+    </script>
  </body>
 </html>
