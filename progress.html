@@ -104,8 +104,8 @@
     <iframe id="proxyFrame"></iframe>
     <div class="container" id="gamesGrid"></div>
 
-    <script>
-        // Array of your 44 local games mapped out cleanly
+        <script>
+        // All 44 of your original local game buttons restored completely
         const gameList = [
             { name: "Sandboxels!", url: "./newgames/sandboxels-main/index.html" },
             { name: "Eaglercraft 1.12!", url: "./1_12.html" },
@@ -163,6 +163,7 @@
             grid.appendChild(btn);
         });
 
+        // Filter Script
         function filterGames() {
             var input = document.getElementById('searchBar').value.toLowerCase();
             var buttons = grid.getElementsByClassName('button');
@@ -172,20 +173,28 @@
             }
         }
 
-        // Fixed: Fully restored service worker registration block
+        // Register the local Ultraviolet service worker using matching folder paths
         async function initProxyWorker() {
             if ('serviceWorker' in navigator) {
                 try {
-                    await navigator.serviceWorker.register('uv/uv.sw.js', { scope: __uv$config.prefix });
-                    console.log("Proxy engine registered successfully.");
-                } catch (err) { 
-                    console.error("Service worker registration crashed:", err); 
+                    const pathSegments = window.location.pathname.split('/');
+                    const repoNameSegment = pathSegments ? '/' + pathSegments : '';
+                    const basePath = window.location.hostname.includes('github.io') ? repoNameSegment : '';
+                    
+                    const dynamicPrefix = basePath + '/uv/service/';
+
+                    await navigator.serviceWorker.register('./uv/uv.sw.js', {
+                        scope: dynamicPrefix
+                    });
+                    console.log("Proxy engine bound cleanly under scope:", dynamicPrefix);
+                } catch (err) {
+                    console.error("Proxy service worker failed to register:", err);
                 }
             }
         }
         initProxyWorker();
 
-        // Safe Enter Key Interception
+        // Listen for the Enter key smoothly without refreshes
         document.getElementById('proxyBar').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault(); 
@@ -193,12 +202,17 @@
             }
         });
 
+        // Encode the typed URL and spin up the iframe container
         function launchProxy() {
             let input = document.getElementById('proxyBar').value;
             if (!input) return;
-            if (!input.startsWith('http://') && !input.startsWith('https://')) { input = 'https://' + input; }
-            
+
+            if (!input.startsWith('http://') && !input.startsWith('https://')) {
+                input = 'https://' + input;
+            }
+
             document.getElementById('gamesGrid').style.display = 'none';
+            
             const targetUrl = __uv$config.prefix + __uv$config.encodeUrl(input);
             const frame = document.getElementById('proxyFrame');
             frame.src = targetUrl;
@@ -214,5 +228,6 @@
             document.getElementById('proxyBar').value = '';
         }
     </script>
+
 </body>
 </html> 
