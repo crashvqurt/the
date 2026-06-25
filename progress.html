@@ -97,7 +97,8 @@
 <body>
     <div class="search-container">
         <input type="text" id="searchBar" onkeyup="filterGames()" placeholder="Search local games...">
-        <input type="text" id="proxyBar" onkeydown="if(event.key==='Enter')launchProxy()" placeholder="Unblock web URL...">
+        <!-- Fixed event execution handler -->
+        <input type="text" id="proxyBar" placeholder="Unblock web URL...">
     </div>
     <center><button id="backBtn" onclick="closeProxy()">← Close Game Window</button></center>
     <iframe id="proxyFrame"></iframe>
@@ -171,20 +172,32 @@
             }
         }
 
+        // Fixed: Fully restored service worker registration block
         async function initProxyWorker() {
             if ('serviceWorker' in navigator) {
                 try {
                     await navigator.serviceWorker.register('uv/uv.sw.js', { scope: __uv$config.prefix });
-                    console.log("Proxy engine registered.");
-                } catch (err) { console.error("SW failed:", err); }
+                    console.log("Proxy engine registered successfully.");
+                } catch (err) { 
+                    console.error("Service worker registration crashed:", err); 
+                }
             }
         }
         initProxyWorker();
+
+        // Safe Enter Key Interception
+        document.getElementById('proxyBar').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); 
+                launchProxy();
+            }
+        });
 
         function launchProxy() {
             let input = document.getElementById('proxyBar').value;
             if (!input) return;
             if (!input.startsWith('http://') && !input.startsWith('https://')) { input = 'https://' + input; }
+            
             document.getElementById('gamesGrid').style.display = 'none';
             const targetUrl = __uv$config.prefix + __uv$config.encodeUrl(input);
             const frame = document.getElementById('proxyFrame');
