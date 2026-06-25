@@ -1,5 +1,5 @@
 // This tells Ultraviolet to send traffic to your Render Wisp backend
-const backendUrl = "https://onrender.com";
+const backendUrl = "https://my-wisp-backend.onrender.com/";
 const wispSocketUrl = backendUrl.replace(/^http/, 'ws') + '/wisp/';
 
 self.__uv$config = {
