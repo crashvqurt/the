@@ -1,0 +1,205 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Secret games!</title>
+    <!-- Load Ultraviolet Proxy Configuration Scripts -->
+    <script src="uv/uv.bundle.js"></script>
+    <script src="uv/uv.config.js"></script>
+    <style>
+        body {
+            background-image: url("cat.webp");
+            background-size: cover;
+            background-position: 50% 25%;
+            backdrop-filter: blur(2px); 
+            -webkit-backdrop-filter: blur(2px);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            padding: 10px;
+        }
+        .button { 
+            border: 2px solid rgba(255, 255, 255, 0.4); 
+            background: rgba(0, 0, 0, 0.25); 
+            padding: 15px 20px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+            text-align: center; 
+            border-radius: 16px; 
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+        .button:hover { 
+            transform: translateY(-5px); 
+            background: rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
+        }
+        .search-container {
+            max-width: 600px;
+            margin: 20px auto 10px auto;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            padding: 0 10px;
+        }
+        #searchBar, #proxyBar {
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 30px;
+            color: white;
+            outline: none;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            width: 50%;
+        }
+        #searchBar::placeholder, #proxyBar::placeholder { color: rgba(255, 255, 255, 0.7); }
+        #backBtn {
+            display: none; 
+            margin: 10px auto 20px auto; 
+            padding: 12px 25px; 
+            background: rgba(255, 71, 87, 0.4); 
+            color: white; 
+            border: 2px solid rgba(255, 255, 255, 0.4); 
+            border-radius: 30px; 
+            cursor: pointer; 
+            font-weight: bold;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        #proxyFrame {
+            width: 95%;
+            height: 85vh;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            margin: 10px auto 30px auto;
+            display: none;
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="searchBar" onkeyup="filterGames()" placeholder="Search local games...">
+        <input type="text" id="proxyBar" onkeydown="if(event.key==='Enter')launchProxy()" placeholder="Unblock web URL...">
+    </div>
+    <center><button id="backBtn" onclick="closeProxy()">← Close Game Window</button></center>
+    <iframe id="proxyFrame"></iframe>
+    <div class="container" id="gamesGrid"></div>
+
+    <script>
+        // Array of your 44 local games mapped out cleanly
+        const gameList = [
+            { name: "Sandboxels!", url: "./newgames/sandboxels-main/index.html" },
+            { name: "Eaglercraft 1.12!", url: "./1_12.html" },
+            { name: "Eaglercraft 1.8!", url: "./1_8.html" },
+            { name: "Subway Surfers!", url: "./Subway-Surfers-main/index.html" },
+            { name: "Paper.io 2!", url: "./paperio2.htm" },
+            { name: "Polytrack!", url: "./polytrack.html" },
+            { name: "poorbunny!", url: "./poorbunny.html" },
+            { name: "pou!", url: "./pou.html" },
+            { name: "Ragdoll Archers!", url: "./ragdollarchers.htm" },
+            { name: "Ragdoll Hit!", url: "./ragdollhit.html" },
+            { name: "Ragdoll Football!", url: "./ragdollsoccer.html" },
+            { name: "RedBall4 Volume 1!", url: "./redball4vol1.html" },
+            { name: "RedBall4 Volume 2!", url: "./redball4vol2.html" },
+            { name: "Slope!", url: "./slope.html" },
+            { name: "Slope 2 Player!", url: "./slope2player.html" },
+            { name: "SlowRoads!", url: "./slowroads.html" },
+            { name: "SnowBall.io!", url: "./snowballio.html" },
+            { name: "Stick Fighter!", url: "./stickfighter.html" },
+            { name: "Tag!", url: "./tag.html" },
+            { name: "Territorial.io!", url: "./territorialio.html" },
+            { name: "The Impossible Quiz!", url: "./theimpossiblequiz.html" },
+            { name: "The Impossible Quiz 2!", url: "./theimpossiblequiz2.html" },
+            { name: "The There is no game!", url: "./thereisnogame.html" },
+            { name: "Tunnel rush!", url: "./tunnelrush.html" },
+            { name: "Bad Piggies!", url: "./newgames/badpiggies.html" },
+            { name: "Basket Random!", url: "./newgames/basketrandom.html" },
+            { name: "Bloxorz!", url: "./newgames/bloxorz.html" },
+            { name: "Bouncy Motors!", url: "./newgames/bouncymotors.html" },
+            { name: "Boxing Random!", url: "./newgames/boxingrandom.htm" },
+            { name: "Car Drawing!", url: "./newgames/cardrawing.html" },
+            { name: "Crazy Cars!", url: "./newgames/crazycars.html" },
+            { name: "Crazy Cattle 3D!", url: "./newgames/crazycattle3D.html" },
+            { name: "Drift Boss!", url: "./newgames/driftboss.htm" },
+            { name: "Drive Mad!", url: "./newgames/drivemad.htm" },
+            { name: "Duck life 1!", url: "./newgames/ducklife.html" },
+            { name: "Duck life 2!", url: "./newgames/ducklife2.html" },
+            { name: "Duck life 3!", url: "./newgames/ducklife3.html" },
+            { name: "Duck life 4!", url: "./newgames/ducklife4.html" },
+            { name: "Duck life 5!", url: "./newgames/ducklife5.html" },
+            { name: "Plonky!", url: "./newgames/plonky.html" },
+            { name: "2048!", url: "./2048/index.html" },
+            { name: "Hextris!", url: "./hextris-gh-pages/index.html" },
+            { name: "Blocky Snakes!", url: "./blockysnakes.html" },
+            { name: "Fruit Ninja!", url: "./fruitninja.html" }
+        ];
+
+        // Dynamically build the grid buttons on load
+        const grid = document.getElementById('gamesGrid');
+        gameList.forEach(game => {
+            const btn = document.createElement('button');
+            btn.className = 'button';
+            btn.textContent = `Play ${game.name}`;
+            btn.onclick = () => window.location.href = game.url;
+            grid.appendChild(btn);
+        });
+
+        function filterGames() {
+            var input = document.getElementById('searchBar').value.toLowerCase();
+            var buttons = grid.getElementsByClassName('button');
+            for (var i = 0; i < buttons.length; i++) {
+                var txtValue = buttons[i].textContent || buttons[i].innerText;
+                buttons[i].style.display = txtValue.toLowerCase().includes(input) ? "" : "none";
+            }
+        }
+
+        async function initProxyWorker() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    await navigator.serviceWorker.register('uv/uv.sw.js', { scope: __uv$config.prefix });
+                    console.log("Proxy engine registered.");
+                } catch (err) { console.error("SW failed:", err); }
+            }
+        }
+        initProxyWorker();
+
+        function launchProxy() {
+            let input = document.getElementById('proxyBar').value;
+            if (!input) return;
+            if (!input.startsWith('http://') && !input.startsWith('https://')) { input = 'https://' + input; }
+            document.getElementById('gamesGrid').style.display = 'none';
+            const targetUrl = __uv$config.prefix + __uv$config.encodeUrl(input);
+            const frame = document.getElementById('proxyFrame');
+            frame.src = targetUrl;
+            frame.style.display = 'block';
+            document.getElementById('backBtn').style.display = 'block';
+        }
+
+        function closeProxy() {
+            document.getElementById('proxyFrame').style.display = 'none';
+            document.getElementById('proxyFrame').src = 'about:blank';
+            document.getElementById('backBtn').style.display = 'none';
+            document.getElementById('gamesGrid').style.display = 'grid';
+            document.getElementById('proxyBar').value = '';
+        }
+    </script>
+</body>
+</html>
